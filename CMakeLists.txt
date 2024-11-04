@@ -1,0 +1,45 @@
+cmake_minimum_required(VERSION 3.14)
+
+project(
+  ramulator
+  VERSION 1.0
+  LANGUAGES CXX
+)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+SET(RAMULATOR_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+SET(RAMULATOR_SOURCES
+	${RAMULATOR_SOURCE_DIR}/ALDRAM.cpp
+	${RAMULATOR_SOURCE_DIR}/Cache.cpp
+	${RAMULATOR_SOURCE_DIR}/Config.cpp
+	${RAMULATOR_SOURCE_DIR}/Controller.cpp
+	${RAMULATOR_SOURCE_DIR}/DDR3.cpp
+	${RAMULATOR_SOURCE_DIR}/DDR4.cpp
+	${RAMULATOR_SOURCE_DIR}/DSARP.cpp
+	${RAMULATOR_SOURCE_DIR}/GDDR5.cpp
+	${RAMULATOR_SOURCE_DIR}/HBM.cpp
+	${RAMULATOR_SOURCE_DIR}/LPDDR3.cpp
+	${RAMULATOR_SOURCE_DIR}/LPDDR4.cpp
+	${RAMULATOR_SOURCE_DIR}/MemoryFactory.cpp
+	${RAMULATOR_SOURCE_DIR}/PCM.cpp
+	${RAMULATOR_SOURCE_DIR}/Processor.cpp
+	${RAMULATOR_SOURCE_DIR}/Refresh.cpp
+	${RAMULATOR_SOURCE_DIR}/SALP.cpp
+	${RAMULATOR_SOURCE_DIR}/StatType.cpp
+	${RAMULATOR_SOURCE_DIR}/STTMRAM.cpp
+	${RAMULATOR_SOURCE_DIR}/TLDRAM.cpp
+	${RAMULATOR_SOURCE_DIR}/WideIO2.cpp
+	${RAMULATOR_SOURCE_DIR}/WideIO.cpp
+)
+
+add_library(ramulator STATIC ${RAMULATOR_SOURCES})
+target_compile_options(ramulator PRIVATE -Wno-missing-field-initializers -Wno-unused-variable -Wno-reorder)
+target_compile_definitions(ramulator PUBLIC RAMULATOR)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY, ${RAMULATOR_SOURCE_DIR})
+
+link_directories(${RAMULATOR_SOURCE_DIR})
+
+include_directories(${RAMULATOR_SOURCE_DIR})
+target_include_directories(ramulator PUBLIC ${RAMULATOR_SOURCE_DIR} PRIVATE src)
